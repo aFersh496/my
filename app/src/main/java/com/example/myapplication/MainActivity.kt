@@ -38,6 +38,8 @@ class MainActivity : AppCompatActivity() {
             adapter.notifyItemRemoved(it)
         }
 
+
+
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
         // у нас будет линейный список
         recyclerView.layoutManager = LinearLayoutManager(this)
