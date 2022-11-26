@@ -15,21 +15,22 @@ class DBHelper(context: Context?) :
         const val DATABASE_NAME = "tododb"
         const val TABLE_NAME = "todos"
         const val KEY_ID = "id"
-        const val KEY_TITLE = "title"
-        const val KEY_IS_DONE = "is_done"
-    }/*
-    data class Todo(
-        val id: Int,
-        val title: String,
-        val isDone: Boolean
-    )*/
+        const val KEY_FNAME = "Name"
+        const val KEY_LNAME = "LName"
+        const val KEY_BDAY = "day"
+        const val KEY_PNUMBER = "phone_number"
+
+    }
+
     override fun onCreate(db: SQLiteDatabase) {
         db.execSQL(
             """
             CREATE TABLE $TABLE_NAME (
                 $KEY_ID INTEGER PRIMARY KEY AUTOINCREMENT,
-                $KEY_TITLE TEXT NOT NULL,
-                $KEY_IS_DONE INTEGER NOT NULL
+                $KEY_FNAME TEXT NOT NULL,
+                $KEY_LNAME TEXT NOT NULL,
+                $KEY_BDAY TEXT NOT NULL,
+                $KEY_PNUMBER TEXT NOT NULL
             )"""
         )
     }
@@ -39,8 +40,8 @@ class DBHelper(context: Context?) :
         onCreate(db)
     }
 
-    fun getAll(): List<Todo> {
-        val result = mutableListOf<Todo>()
+    fun getAll(): List<Person> {
+        val result = mutableListOf<Person>()
         val database = this.writableDatabase
         val cursor: Cursor = database.query(
             TABLE_NAME, null, null, null,
@@ -48,43 +49,60 @@ class DBHelper(context: Context?) :
         )
         if (cursor.moveToFirst()) {
             val idIndex: Int = cursor.getColumnIndex(KEY_ID)
-            val titleIndex: Int = cursor.getColumnIndex(KEY_TITLE)
-            val isDoneIndex: Int = cursor.getColumnIndex(KEY_IS_DONE)
+            // val titleIndex: Int = cursor.getColumnIndex(KEY_TITLE)
+            val firstnameIndex: Int = cursor.getColumnIndex(KEY_FNAME)
+            val lastnameIndex: Int = cursor.getColumnIndex(KEY_LNAME)
+            val bdayIndex: Int = cursor.getColumnIndex(KEY_BDAY)
+            val phonenumberIndex: Int = cursor.getColumnIndex(KEY_PNUMBER)
+
             do {
-                val todo = Todo(
+                val person = Person(
                     cursor.getLong(idIndex),
-                    cursor.getString(titleIndex),
-                    cursor.getInt(isDoneIndex) == 1
-                )
-                result.add(todo)
+                    cursor.getString(lastnameIndex),
+                    cursor.getString(firstnameIndex),
+                    cursor.getString(bdayIndex),
+                    cursor.getString(phonenumberIndex),
+
+                    )
+                result.add(person)
             } while (cursor.moveToNext())
         }
         cursor.close()
         return result
     }
 
-    fun add(title: String, isDone: Boolean = false): Long {
+    fun add(lastname:String,firstname: String,bday: String,phonenumber: String ): Long {
         val database = this.writableDatabase
         val contentValues = ContentValues()
-        contentValues.put(KEY_TITLE, title)
-        contentValues.put(KEY_IS_DONE, if (isDone) 1 else 0)
+        ///
+        contentValues.put(KEY_FNAME, firstname)
+        contentValues.put(KEY_LNAME, lastname)
+        contentValues.put(KEY_BDAY, bday)
+        contentValues.put(KEY_PNUMBER, phonenumber)
+
         val id = database.insert(TABLE_NAME, null, contentValues)
         close()
         return id
     }
 
-    fun update(id: Long, title: String, isDone: Boolean) {
+    fun update(id: Long, lastname:String,firstname: String,bday: String,phonenumber: String) {
         val database = this.writableDatabase
         val contentValues = ContentValues()
-        contentValues.put(KEY_TITLE, title)
-        contentValues.put(KEY_IS_DONE, if (isDone) 1 else 0)
+        ///
+        contentValues.put(KEY_FNAME, firstname)
+        contentValues.put(KEY_LNAME, lastname)
+        contentValues.put(KEY_BDAY, bday)
+        contentValues.put(KEY_PNUMBER, phonenumber)
+
         database.update(TABLE_NAME, contentValues, "$KEY_ID = ?", arrayOf(id.toString()))
         close()
     }
 
     fun remove(id: Long) {
         val database = this.writableDatabase
+        //database.delete(TABLE_NAME, "$KEY_ID = ?", arrayOf(id.toString()))
         database.delete(TABLE_NAME, "$KEY_ID = ?", arrayOf(id.toString()))
+
         close()
     }
 
@@ -92,8 +110,6 @@ class DBHelper(context: Context?) :
         val database = this.writableDatabase
         database.delete(TABLE_NAME, null, null)
         close()
-
-
     }
 
 }

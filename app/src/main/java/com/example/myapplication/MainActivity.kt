@@ -1,19 +1,10 @@
 package com.example.myapplication
 
-import android.content.ContentValues
-import android.content.Context
-import android.database.Cursor
-import android.database.sqlite.SQLiteDatabase
-import android.database.sqlite.SQLiteOpenHelper
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
-import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
@@ -26,16 +17,18 @@ class MainActivity : AppCompatActivity() {
 
 
         // заполняем список
-        val list = mutableListOf<Todo>()
+        val list = mutableListOf<Person>()
         list.addAll(dbHelper.getAll())
 
 
         // создаём инстанс адаптера, отдаём ему список
         adapter = RecyclerAdapter(list) {
-            Log.d("123", it.toString())
+            /*Log.d("123", it.toString())
             dbHelper.remove(list[it].id)
             list.removeAt(it)
-            adapter.notifyItemRemoved(it)
+            adapter.notifyItemRemoved(it)*/
+            val intent = Intent(this, InfoActivity::class.java)
+            startActivity(intent)
         }
 
 
@@ -47,15 +40,22 @@ class MainActivity : AppCompatActivity() {
         recyclerView.adapter = adapter
 
         val editText = findViewById<EditText>(R.id.editText)
-        val button = findViewById<Button>(R.id.button)
+        val button = findViewById<Button>(R.id.button_main)
         button.setOnClickListener {
             // так можно менять текст кнопки
-            val text = editText.text.toString()
+            /*val text = editText.text.toString()
 
             val id = dbHelper.add(text)
             val todo = Todo(id, text)
             list.add(todo)
-            adapter.notifyItemInserted(list.lastIndex)
+            adapter.notifyItemInserted(list.lastIndex)*/
+
+            val intent = Intent(this, EditActivity::class.java)
+            startActivity(intent)
+            /*
+            val intent1 = Intent(this, InfoActivity::class.java)
+            startActivity(intent)*/
+
 
         }
 
