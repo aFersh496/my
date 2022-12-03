@@ -43,13 +43,15 @@ class MainActivity : AppCompatActivity() {
         val button = findViewById<Button>(R.id.button_main)
         button.setOnClickListener {
             // так можно менять текст кнопки
-            /*val text = editText.text.toString()
+           //val text = editText.text.toString()
 
-            val id = dbHelper.add(text)
-            val todo = Todo(id, text)
+/*
+            val id = dbHelper.add(firstname)
+            val todo = Todo(id,firstname,lastname,bday, phonenumber)
             list.add(todo)
-            adapter.notifyItemInserted(list.lastIndex)*/
-
+            finish()
+            adapter.notifyItemInserted(list.lastIndex)
+*/
             val intent = Intent(this, EditActivity::class.java)
             startActivity(intent)
             /*

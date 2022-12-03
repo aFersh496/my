@@ -71,7 +71,7 @@ class DBHelper(context: Context?) :
         return result
     }
 
-    fun add(lastname:String,firstname: String,bday: String,phonenumber: String ): Long {
+    fun add(lastname: String, firstname: String, bday: String, phonenumber: String): Long {
         val database = this.writableDatabase
         val contentValues = ContentValues()
         ///
@@ -85,7 +85,7 @@ class DBHelper(context: Context?) :
         return id
     }
 
-    fun update(id: Long, lastname:String,firstname: String,bday: String,phonenumber: String) {
+    fun update(id: Long, lastname: String, firstname: String, bday: String, phonenumber: String) {
         val database = this.writableDatabase
         val contentValues = ContentValues()
         ///

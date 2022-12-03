@@ -29,6 +29,7 @@ class RecyclerAdapter(private val list: List<Person>, val onClick: (index: Int) 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val textView = itemView.findViewById<TextView>(R.id.textView)
         val button = itemView.findViewById<Button>(R.id.button_main)
+        //val buttonSave = itemView.findViewById<Button>(R.id.button6)
     }
 
 
