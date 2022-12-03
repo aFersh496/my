@@ -1,5 +1,6 @@
 package com.example.myapplication
 
+import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -9,15 +10,21 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 class MainActivity : AppCompatActivity() {
-    val dbHelper = DBHelper(this)
+
+    companion object {
+        const val START_CREATE_CODE = 1
+    }
+
+    private val dbHelper = DBHelper(this)
+
+    private val list = mutableListOf<Person>()
+
     lateinit var adapter: RecyclerAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
 
-        // заполняем список
-        val list = mutableListOf<Person>()
         list.addAll(dbHelper.getAll())
 
 
@@ -53,7 +60,7 @@ class MainActivity : AppCompatActivity() {
             adapter.notifyItemInserted(list.lastIndex)
 */
             val intent = Intent(this, EditActivity::class.java)
-            startActivity(intent)
+            startActivityForResult(intent, START_CREATE_CODE)
             /*
             val intent1 = Intent(this, InfoActivity::class.java)
             startActivity(intent)*/
@@ -61,6 +68,17 @@ class MainActivity : AppCompatActivity() {
 
         }
 
+
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == START_CREATE_CODE && resultCode == Activity.RESULT_OK) {
+            list.clear()
+            list.addAll(dbHelper.getAll())
+            adapter.notifyDataSetChanged()
+        }
 
     }
 }
