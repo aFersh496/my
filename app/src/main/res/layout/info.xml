@@ -31,7 +31,7 @@
                 android:textColor="#1768E1" />
 
             <EditText
-                android:id="@+id/editTextTextPersonName"
+                android:id="@+id/infolastname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -56,7 +56,7 @@
                 android:textColor="#1768E1" />
 
             <EditText
-                android:id="@+id/editTextTextPersonName2"
+                android:id="@+id/infofirstname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -81,7 +81,7 @@
                 android:textColor="#1768E1" />
 
             <EditText
-                android:id="@+id/editTextTextPersonName3"
+                android:id="@+id/infobday"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -106,7 +106,7 @@
                 android:textColor="#1768E1" />
 
             <EditText
-                android:id="@+id/editTextTextPersonName4"
+                android:id="@+id/infophone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -125,7 +125,7 @@
         tools:layout_editor_absoluteX="16dp">
 
         <Button
-            android:id="@+id/button4"
+            android:id="@+id/buttondelete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="#F44336"
@@ -138,7 +138,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <Button
-            android:id="@+id/button3"
+            android:id="@+id/buttoneditinfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="#1C4BC1"
@@ -146,11 +146,12 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/button4"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/button2"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toEndOf="@+id/buttonlast"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/buttonlast"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="#1C4BC1"

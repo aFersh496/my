@@ -13,10 +13,10 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         const val START_CREATE_CODE = 1
+        const val EXTRA_ID = "id"
     }
 
     private val dbHelper = DBHelper(this)
-
     private val list = mutableListOf<Person>()
 
     lateinit var adapter: RecyclerAdapter
@@ -35,9 +35,10 @@ class MainActivity : AppCompatActivity() {
             list.removeAt(it)
             adapter.notifyItemRemoved(it)*/
             val intent = Intent(this, InfoActivity::class.java)
+            intent.putExtra(EXTRA_ID, list[it].id)
             startActivity(intent)
-        }
 
+        }
 
 
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
@@ -47,28 +48,19 @@ class MainActivity : AppCompatActivity() {
         recyclerView.adapter = adapter
 
         val editText = findViewById<EditText>(R.id.editText)
-        val button = findViewById<Button>(R.id.button_main)
+        val button = findViewById<Button>(R.id.button_create)
         button.setOnClickListener {
-            // так можно менять текст кнопки
-           //val text = editText.text.toString()
-
-/*
-            val id = dbHelper.add(firstname)
-            val todo = Todo(id,firstname,lastname,bday, phonenumber)
-            list.add(todo)
-            finish()
-            adapter.notifyItemInserted(list.lastIndex)
-*/
             val intent = Intent(this, EditActivity::class.java)
             startActivityForResult(intent, START_CREATE_CODE)
-            /*
-            val intent1 = Intent(this, InfoActivity::class.java)
-            startActivity(intent)*/
-
-
         }
+        /*
+        val button = findViewById<Button>(R.id.button_mainlayout)
+        button.setOnClickListener {
+            val intent = Intent(this, EditActivity::class.java)
+            startActivityForResult(intent, START_CREATE_CODE)
 
 
+    } */
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -81,4 +73,7 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
+
+
 }
+
