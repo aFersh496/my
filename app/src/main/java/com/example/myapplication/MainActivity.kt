@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import androidx.core.widget.addTextChangedListener
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
@@ -29,7 +30,7 @@ class MainActivity : AppCompatActivity() {
 
 
         // создаём инстанс адаптера, отдаём ему список
-        adapter = RecyclerAdapter(list) {
+        adapter = RecyclerAdapter() {
             /*Log.d("123", it.toString())
             dbHelper.remove(list[it].id)
             list.removeAt(it)
@@ -39,6 +40,7 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
 
         }
+        adapter.updateList(list)
 
 
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
@@ -47,21 +49,28 @@ class MainActivity : AppCompatActivity() {
         // прикручиваем адаптер к RecyclerView
         recyclerView.adapter = adapter
 
-        val editText = findViewById<EditText>(R.id.editText)
+        val editText:EditText = findViewById<EditText>(R.id.editText)
         val button = findViewById<Button>(R.id.button_create)
         button.setOnClickListener {
             val intent = Intent(this, EditActivity::class.java)
             startActivityForResult(intent, START_CREATE_CODE)
         }
-        /*
-        val button = findViewById<Button>(R.id.button_mainlayout)
-        button.setOnClickListener {
-            val intent = Intent(this, EditActivity::class.java)
-            startActivityForResult(intent, START_CREATE_CODE)
 
+        editText.addTextChangedListener {
+            filter ->
+            val filterStr=filter.toString()
+            if(filterStr.isBlank()){
+                adapter.updateList(list)
+            }else{
+                val filteredList=list.filter {
+                    it.firstname.contains(filterStr,true) || it.lastname.contains(filterStr,true)
+                }
+                adapter.updateList(filteredList)
+            }
+        }
 
-    } */
     }
+
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
@@ -76,4 +85,3 @@ class MainActivity : AppCompatActivity() {
 
 
 }
-

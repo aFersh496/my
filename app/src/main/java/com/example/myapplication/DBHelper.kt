@@ -120,18 +120,18 @@ class DBHelper(context: Context?) :
         )
         if (cursor.moveToFirst()) {
             val idIndex: Int = cursor.getColumnIndex(KEY_ID)
-            val firstname: Int = cursor.getColumnIndex(KEY_FNAME)
-            val lastname: Int = cursor.getColumnIndex(KEY_LNAME)
-            val bday: Int = cursor.getColumnIndex(KEY_BDAY)
-            val phonenumber: Int = cursor.getColumnIndex(KEY_PNUMBER)
+            val firstnameIndex: Int = cursor.getColumnIndex(KEY_FNAME)
+            val lastnameIndex: Int = cursor.getColumnIndex(KEY_LNAME)
+            val bdayIndex: Int = cursor.getColumnIndex(KEY_BDAY)
+            val phonenumberIndex: Int = cursor.getColumnIndex(KEY_PNUMBER)
             result = Person(
                 cursor.getLong(idIndex),
-                cursor.getString(firstname),
-                cursor.getString(lastname),
-                cursor.getString(bday),
-                cursor.getString(phonenumber),
+                cursor.getString(firstnameIndex),
+                cursor.getString(lastnameIndex),
+                cursor.getString(bdayIndex),
+                cursor.getString(phonenumberIndex)
 
-            )
+                )
         }
         cursor.close()
         return result

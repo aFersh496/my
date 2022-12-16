@@ -7,12 +7,21 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class RecyclerAdapter(private val list: List<Person>, val onClick: (index: Int) -> Unit): RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
+class RecyclerAdapter(val onClick: (index: Int) -> Unit): RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
+    private val list = mutableListOf<Person>()
+    fun updateList(newList: List<Person>) {
+        list.clear()
+        list.addAll(newList)
+        this.notifyDataSetChanged()
+    }
+
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemView = LayoutInflater.from(parent.context)
             .inflate(R.layout.layout, parent, false)
         return ViewHolder(itemView)
     }
+
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.textView.text = list[position].lastname

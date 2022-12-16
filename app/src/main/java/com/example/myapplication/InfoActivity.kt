@@ -37,16 +37,17 @@ class InfoActivity : AppCompatActivity() {
         val buttonedit = findViewById<Button>(R.id.buttoneditinfo)
         buttonedit.setOnClickListener {
             val intent = Intent(this, EditActivity::class.java)
+            intent.putExtra(MainActivity.EXTRA_ID, id)
             startActivity(intent)
         }
 
         val buttondelete = findViewById<Button>(R.id.buttondelete)
         buttondelete.setOnClickListener{
-            val person_id = intent.getLongExtra(MainActivity.EXTRA_ID, -1L)
-            if (person_id == -1L) {
+            /*val person_id = intent.getLongExtra(MainActivity.EXTRA_ID, -1L)*/
+            if (id == -1L) {
                 return@setOnClickListener
             }
-            dbHelper.remove(person_id)
+            dbHelper.remove(id)
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
