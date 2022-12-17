@@ -67,11 +67,19 @@ class EditActivity : AppCompatActivity() {
             val lastname = editTextLast.text.toString()
             val bday = editTextBay.text.toString()
             val phonenumber = editTextPhone.text.toString()
-            dbHelper.add(lastname, firstname, bday, phonenumber)
-
+            if (id != 0L) {
+                dbHelper.update(id, lastname, firstname, bday, phonenumber)
+            } else {
+                dbHelper.add(lastname, firstname, bday, phonenumber)
+            }
+/*
             val returnIntent = Intent()
             setResult(Activity.RESULT_OK, returnIntent)
-            finish()
+            finish()*/
+
+
+            val returnIntent = Intent(this, MainActivity::class.java)
+            startActivity(returnIntent)
         }
     }
 }

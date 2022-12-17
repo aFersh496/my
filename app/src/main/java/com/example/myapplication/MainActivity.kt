@@ -49,21 +49,20 @@ class MainActivity : AppCompatActivity() {
         // прикручиваем адаптер к RecyclerView
         recyclerView.adapter = adapter
 
-        val editText:EditText = findViewById<EditText>(R.id.editText)
+        val editText: EditText = findViewById<EditText>(R.id.editText)
         val button = findViewById<Button>(R.id.button_create)
         button.setOnClickListener {
             val intent = Intent(this, EditActivity::class.java)
             startActivityForResult(intent, START_CREATE_CODE)
         }
 
-        editText.addTextChangedListener {
-            filter ->
-            val filterStr=filter.toString()
-            if(filterStr.isBlank()){
+        editText.addTextChangedListener { filter ->
+            val filterStr = filter.toString()
+            if (filterStr.isBlank()) {
                 adapter.updateList(list)
-            }else{
-                val filteredList=list.filter {
-                    it.firstname.contains(filterStr,true) || it.lastname.contains(filterStr,true)
+            } else {
+                val filteredList = list.filter {
+                    it.firstname.contains(filterStr, true) || it.lastname.contains(filterStr, true)
                 }
                 adapter.updateList(filteredList)
             }
